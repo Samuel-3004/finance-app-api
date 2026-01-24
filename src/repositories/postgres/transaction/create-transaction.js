@@ -1,6 +1,6 @@
 import { PostgresHelper } from '../../../db/postgres/helper.js'
 
-export class PostgresCreateTrasactionRepository {
+export class PostgresCreateTransactionRepository {
     async execute(createTransactionParams) {
         const createdTransaction = await PostgresHelper.query(
             `
