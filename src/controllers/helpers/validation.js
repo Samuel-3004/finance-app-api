@@ -8,6 +8,12 @@ export const invalidIdResponse = () =>
         message: 'The provided id is not valid.',
     })
 
+export const requiredFieldIsMissingResponse = (field) => {
+    badRequest({
+        message: `The field ${field} is required.`,
+    })
+}
+
 export const checkIfIsString = (value) => typeof value === 'string'
 
 export const validateRequiredFields = (params, requiredFields) => {
@@ -26,10 +32,9 @@ export const validateRequiredFields = (params, requiredFields) => {
                 ok: false,
             }
         }
-    }
-
-    return {
-        missingField: undefined,
-        ok: true,
+        return {
+            ok: true,
+            missingField: undefined,
+        }
     }
 }

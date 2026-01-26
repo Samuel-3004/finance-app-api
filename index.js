@@ -1,6 +1,9 @@
 import 'dotenv/config'
 import express from 'express'
-import { makeCreateTransactionController } from './src/factories/controllers/transaction.js'
+import {
+    makeCreateTransactionController,
+    makeGetTransactionsByUserIdController,
+} from './src/factories/controllers/transaction.js'
 import {
     makeCreateUserController,
     makeDeleteUserController,
@@ -49,6 +52,16 @@ app.post('/api/transactions', async (request, response) => {
 
     const { statusCode, body } =
         await createTransactionController.execute(request)
+
+    response.status(statusCode).json(body)
+})
+
+app.get('/api/transactions', async (request, response) => {
+    const getTransactionsByUserIdController =
+        makeGetTransactionsByUserIdController()
+
+    const { statusCode, body } =
+        await getTransactionsByUserIdController.execute(request)
 
     response.status(statusCode).json(body)
 })
