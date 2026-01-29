@@ -14,9 +14,6 @@ export const emailIsAlreadyInUseResponse = () =>
 export const userNotFoundResponse = () =>
     notFound({ message: 'User not found.' })
 
-export const transactionNotFoundResponse = () =>
-    notFound({ message: 'Transaction not found.' })
-
 export const checkIfPasswordIsValid = (password) => password.length >= 6
 
 export const checkIfEmailIsValid = (email) => validator.isEmail(email)
