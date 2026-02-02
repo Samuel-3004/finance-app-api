@@ -1,5 +1,15 @@
+# Dependencies
 node_modules
-.postgres
+
+# Environment files
 .env
+
+# Postgres volume
+.postgres-data
+.postgres
+
+# Logs
 AGENTS.md
+
+# Editor settings
 .vscode
