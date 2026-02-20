@@ -14,9 +14,9 @@ describe('Create User Controller', () => {
 
         const httpRequest = {
             body: {
-                first_name: 'John',
-                last_name: 'Doe',
-                email: 'john@doe.com',
+                first_name: 'Henrique',
+                last_name: 'Poleot',
+                email: 'henrique@poleot.com',
                 password: '123456',
             },
         }
@@ -26,7 +26,7 @@ describe('Create User Controller', () => {
 
         // Assert
         expect(result.statusCode).toBe(201)
-        expect(result.body).toBe(httpRequest.body)
+        expect(result.body).toEqual(httpRequest.body)
     })
 
     it('should return 400 if first_name is not provided', async () => {
@@ -122,5 +122,42 @@ describe('Create User Controller', () => {
         const result = await createUserController.execute(httpRequest)
 
         expect(result.statusCode).toBe(400)
+    })
+
+    it('should return 400 if password is less than 6 characters', async () => {
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+        const httpRequest = {
+            body: {
+                first_name: 'John',
+                last_name: 'Doe',
+                email: 'jonh@doe.com',
+                password: '123',
+            },
+        }
+
+        const result = await createUserController.execute(httpRequest)
+
+        expect(result.statusCode).toBe(400)
+    })
+
+    it('should call CreateUserUseCase with correct params', async () => {
+        const createUserUseCase = new CreateUserUseCaseStub()
+        const createUserController = new CreateUserController(createUserUseCase)
+
+        const httpRequest = {
+            body: {
+                first_name: 'Henrique',
+                last_name: 'Poleot',
+                email: 'henrique@poleot.com',
+                password: '123456',
+            },
+        }
+
+        const executeSpy = jest.spyOn(createUserUseCase, 'execute')
+
+        await createUserController.execute(httpRequest)
+
+        expect(executeSpy).toHaveBeenCalledWith(httpRequest.body)
     })
 })
