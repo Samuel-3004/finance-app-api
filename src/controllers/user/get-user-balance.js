@@ -31,7 +31,7 @@ export class GetUserBalanceController {
             }
 
             console.log(error)
-            return serverError
+            return serverError()
         }
     }
 }
